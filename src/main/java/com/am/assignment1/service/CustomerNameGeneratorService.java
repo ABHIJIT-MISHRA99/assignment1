@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Random;
 @Component
-public class customernamegeneratorservice {
+public class CustomerNameGeneratorService {
     private static final String vowels = "aeiou";
     private static final String consonants = "bcdfghjklmnpqrstvwxyz";
 

@@ -1,5 +1,6 @@
 package com.am.assignment1.service;
 
+import com.am.assignment1.dto.AccountDTO;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -15,7 +16,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 @Service
-public class accountexcelfileservice {
+public class AccountExcelFileService {
     public void writeExcel(List<List<String>> k, int i) throws IOException {
         List<List<String>> m=k;
         // workbook object
@@ -64,5 +65,18 @@ public class accountexcelfileservice {
 
         workbook.write(out);
         out.close();
+    }
+
+    public void writeToFile(List<AccountDTO> accounts) {
+        // open buffer once, write all accounts.
+        for (AccountDTO account : accounts) {
+            account.print(); // this will go in the file.
+        }
+    }
+    public void writeToExcelFile(List<AccountDTO> accounts) {
+        // open buffer once, write all accounts.
+        for (AccountDTO account : accounts) {
+            account.getAccountID();// and use other getters
+        }
     }
 }

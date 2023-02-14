@@ -17,6 +17,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	compileOnly 'org.projectlombok:lombok:1.18.26'
+	// TODO - put annotation processor
 	testCompileOnly 'org.projectlombok:lombok:1.18.26'
 	// https://mvnrepository.com/artifact/org.apache.poi/poi
 	implementation 'org.apache.poi:poi:5.2.3'
