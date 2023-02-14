@@ -32,8 +32,6 @@ public class GenerateAccountFilename {
     @PostConstruct
     public void createAccountFile() throws IOException {
         List<AccountDTO> accounts = new ArrayList<>();
-
-        List<List<String>> l = new ArrayList<>();
         accountfileservice.generateFile();
         for (int i = 0; i < 5; i++) {
             // name
@@ -48,35 +46,35 @@ public class GenerateAccountFilename {
             AccountDTO accountDTO = new AccountDTO(generateName, accountId, balance, dateNow);
             accounts.add(accountDTO);
 
-            /*List<String> acclist = new ArrayList<>();
-
-
-
-            acclist.add(generateName);
-            acclist.add(accountId);
-            acclist.add(String.valueOf(balance));
-            acclist.add(String.valueOf(n));
-
-
-
-            l.add(acclist);
-            writlefile(l);
-            writeexcel(l,i);*/
         }
 
-        accountexcelfileservice.writeToFile(accounts);
+
+        accountfileservice.writeToFile(accounts);
+        accountexcelfileservice.writeExcel(accounts);
+
+    }
+    @PostConstruct
+    public void createAccountExcelFile() throws IOException {
+        List<AccountDTO> accounts = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            // name
+            String generateName = customernamegeneratorservice.generateName();
+            // account id
+            String accountId = String.format("%012d", i);
+            // account balance
+            float input = rd.nextFloat();
+            float balance = Float.parseFloat(df.format(input));
+            // create date
+            LocalDate dateNow = LocalDate.now();
+            AccountDTO accountDTO = new AccountDTO(generateName, accountId, balance, dateNow);
+            accounts.add(accountDTO);
+
+        }
+
+        accountexcelfileservice.writeExcel(accounts);
+
     }
 
 
-    private void writeexcel(List<List<String>> l, int i) throws IOException {
-        List<List<String>> k=l;
-       accountexcelfileservice.writeExcel(k,i);
-    }
 
-    private void writlefile(List<List<String>> acclist) throws IOException {
-        List<List<String>> k = acclist;
-
-        accountfileservice.writeAccount(k);
-
-    }
 }

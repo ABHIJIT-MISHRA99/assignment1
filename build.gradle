@@ -18,6 +18,10 @@ dependencies {
 
 	compileOnly 'org.projectlombok:lombok:1.18.26'
 	// TODO - put annotation processor
+	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
+	annotationProcessor 'org.mapstruct:mapstruct:1.5.3.Final'
+	annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+
 	testCompileOnly 'org.projectlombok:lombok:1.18.26'
 	// https://mvnrepository.com/artifact/org.apache.poi/poi
 	implementation 'org.apache.poi:poi:5.2.3'

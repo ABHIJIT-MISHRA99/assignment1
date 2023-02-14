@@ -7,9 +7,15 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,8 +23,9 @@ import java.util.TreeMap;
 
 @Service
 public class AccountExcelFileService {
-    public void writeExcel(List<List<String>> k, int i) throws IOException {
-        List<List<String>> m=k;
+
+    public static String Filename="cusaccount.xlsx";
+    public void writeExcel(List<AccountDTO> accounts) throws IOException {
         // workbook object
         XSSFWorkbook workbook = new XSSFWorkbook();
 
@@ -34,10 +41,9 @@ public class AccountExcelFileService {
                 = new TreeMap<String, Object[]>();
         int y=2;
         Data.put("1", new Object[]{"Account Id", "Account name ", "Account Balance ", "Balance Date"});
-        for(List<String> sublist:m) {
-            Data.put(String.valueOf(y), new Object[]{sublist.get(0), sublist.get(1),sublist.get(2),sublist.get(3)});
+        for (AccountDTO account:accounts) {
+            Data.put(String.valueOf(y), new Object[]{account.getAccountID(),account.getCustomerName(),String.valueOf(account.getAccountBalance()),String.valueOf(account.getCreateDate())});
             y++;
-
         }
 
         Set<String> keyid = Data.keySet();
@@ -60,23 +66,12 @@ public class AccountExcelFileService {
 
         // .xlsx is the format for Excel Sheets...
         // writing the workbook into the file...
-        FileOutputStream out = new FileOutputStream(
-                new File("customeraccountsheet.xlsx"));
-
+//        FileOutputStream out = new FileOutputStream(
+//                new File("customeraccountsheet.xlsx"));
+        Path path= Paths.get(Filename);
+        FileOutputStream out = new FileOutputStream(Filename);
         workbook.write(out);
         out.close();
     }
 
-    public void writeToFile(List<AccountDTO> accounts) {
-        // open buffer once, write all accounts.
-        for (AccountDTO account : accounts) {
-            account.print(); // this will go in the file.
-        }
-    }
-    public void writeToExcelFile(List<AccountDTO> accounts) {
-        // open buffer once, write all accounts.
-        for (AccountDTO account : accounts) {
-            account.getAccountID();// and use other getters
-        }
-    }
 }

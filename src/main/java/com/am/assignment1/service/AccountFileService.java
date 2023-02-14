@@ -1,5 +1,6 @@
 package com.am.assignment1.service;
 
+import com.am.assignment1.dto.AccountDTO;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedWriter;
@@ -24,11 +25,13 @@ public class AccountFileService {
         Path file = Files.createFile(Paths.get(Filename));
         System.out.println("file:"+file);
     }
-    public void writeAccount(List<List<String>> acc) throws IOException {
-        Path path = Paths.get(Filename);
-        try(BufferedWriter bufferedWriter=Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.APPEND)){
-            for(List<String> i:acc) {
-                bufferedWriter.write(i.toString());
+
+
+    public void writeToFile(List<AccountDTO> accounts) throws IOException {
+        Path path=Paths.get(Filename);
+        try(BufferedWriter bufferedWriter=Files.newBufferedWriter(path,StandardCharsets.UTF_8,StandardOpenOption.APPEND)){
+            for (AccountDTO account : accounts) {
+                bufferedWriter.write(account.print());// this will go in the file.
                 bufferedWriter.write(System.lineSeparator());
             }
         }catch (IOException e){
