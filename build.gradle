@@ -1,7 +1,9 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '2.7.8'
-	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+//	id 'org.springframework.boot' version '2.7.8'
+//	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'org.springframework.boot' version '3.0.2'
+	id 'io.spring.dependency-management' version '1.1.0'
 }
 
 group = 'com.am'
@@ -17,7 +19,10 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	compileOnly 'org.projectlombok:lombok:1.18.26'
-	// TODO - put annotation processor
+	// https://mvnrepository.com/artifact/io.tracee.contextlogger.contextprovider/contextprovider-annotationprocessor
+	compileOnly 'io.tracee.contextlogger.contextprovider:contextprovider-annotationprocessor:0.11.0'
+
+
 	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
 	annotationProcessor 'org.mapstruct:mapstruct:1.5.3.Final'
 	annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'

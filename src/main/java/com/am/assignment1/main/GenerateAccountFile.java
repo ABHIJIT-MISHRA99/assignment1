@@ -4,10 +4,15 @@ import com.am.assignment1.dto.AccountDTO;
 import com.am.assignment1.service.AccountExcelFileService;
 import com.am.assignment1.service.AccountFileService;
 import com.am.assignment1.service.CustomerNameGeneratorService;
+
+import jakarta.annotation.PostConstruct;
+//import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -16,7 +21,9 @@ import java.util.List;
 import java.util.Random;
 
 @Service
+//@Slf4j
 public class GenerateAccountFile {
+    private static final Logger log = LoggerFactory.getLogger(GenerateAccountFile.class);
 
     @Autowired
     private AccountFileService accountfileservice;
@@ -35,17 +42,15 @@ public class GenerateAccountFile {
     @PostConstruct
     public void createAccountFile() throws IOException {
         List<AccountDTO> accounts = new ArrayList<>();
-        List<String> names = new ArrayList<>();
-        List<String> listOfNames=customerNameGeneratorService.getNames();
-        for(String name:listOfNames){
-            names.add(name);
-        }
+//        List<String> names = new ArrayList<>();
+        List<String> names=customerNameGeneratorService.getNames();
         accountfileservice.generateFile();
 
         for (int i = 0; i < 20; i++){
 
             String generateName = customerNameGeneratorService.generateName();
             names.add(generateName);
+            log.info(names.toString());
             // account id
             String accountId = String.format("%012d", i);
             // account balance
@@ -54,6 +59,7 @@ public class GenerateAccountFile {
             // create date
             LocalDate dateNow = LocalDate.now();
             AccountDTO accountDTO = new AccountDTO(accountId,names.get(i), balance, dateNow);
+//            log.info(names.get(i).toString());
             accounts.add(accountDTO);
 
         }

@@ -1,6 +1,7 @@
 package com.am.assignment1.service;
 
 import com.am.assignment1.dto.AccountDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedWriter;
@@ -13,6 +14,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 @Service
+@Slf4j
 public class AccountFileService {
     public static String Filename="cusaccount.txt";
 
