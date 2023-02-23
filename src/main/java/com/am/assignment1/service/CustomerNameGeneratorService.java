@@ -2,11 +2,33 @@ package com.am.assignment1.service;
 
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.Random;
+
 @Component
 public class CustomerNameGeneratorService {
     private static final String vowels = "aeiou";
     private static final String consonants = "bcdfghjklmnpqrstvwxyz";
+
+    private List<String> names=new ArrayList<>();
+    private int count=0;
+
+    public List<String> getNames() {
+        names.add("abcd");
+        names.add("abcd1");
+        names.add("abcd2");
+        names.add("abcd3");
+        names.add("abcd4");
+        return  names;
+    }
+    public int getNameCount(List<String> names){
+        for(String w:names){
+            count+=1;
+        }
+        return count;
+    }
 
     public String generateName() {
         return generateFourLetterString(4) + " " + generateFourLetterString(4);

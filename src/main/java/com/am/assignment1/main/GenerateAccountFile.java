@@ -16,34 +16,44 @@ import java.util.List;
 import java.util.Random;
 
 @Service
-public class GenerateAccountFilename {
+public class GenerateAccountFile {
 
     @Autowired
     private AccountFileService accountfileservice;
     @Autowired
     private AccountExcelFileService accountexcelfileservice;
     @Autowired
-    private CustomerNameGeneratorService customernamegeneratorservice;
+    private CustomerNameGeneratorService customerNameGeneratorService;
     private static final DecimalFormat df = new DecimalFormat("0.00");
     public static List<String> acclist;
-    public  static Random rd = new Random();
+    public static Random rd = new Random();
+
+    public static float leftLimit = 1000F;
+    public static float rightLimit = 2000F;
 
 
     @PostConstruct
     public void createAccountFile() throws IOException {
         List<AccountDTO> accounts = new ArrayList<>();
+        List<String> names = new ArrayList<>();
+        List<String> listOfNames=customerNameGeneratorService.getNames();
+        for(String name:listOfNames){
+            names.add(name);
+        }
         accountfileservice.generateFile();
-        for (int i = 0; i < 5; i++) {
-            // name
-            String generateName = customernamegeneratorservice.generateName();
+
+        for (int i = 0; i < 20; i++){
+
+            String generateName = customerNameGeneratorService.generateName();
+            names.add(generateName);
             // account id
             String accountId = String.format("%012d", i);
             // account balance
             float input = rd.nextFloat();
-            float balance = Float.parseFloat(df.format(input));
+            float balance = leftLimit + Float.parseFloat(df.format(input)) * (rightLimit - leftLimit);
             // create date
             LocalDate dateNow = LocalDate.now();
-            AccountDTO accountDTO = new AccountDTO(generateName, accountId, balance, dateNow);
+            AccountDTO accountDTO = new AccountDTO(accountId,names.get(i), balance, dateNow);
             accounts.add(accountDTO);
 
         }
@@ -53,12 +63,20 @@ public class GenerateAccountFilename {
         accountexcelfileservice.writeExcel(accounts);
 
     }
+
     @PostConstruct
     public void createAccountExcelFile() throws IOException {
         List<AccountDTO> accounts = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        List<String> names = new ArrayList<>();
+        List<String> listOfNames=customerNameGeneratorService.getNames();
+        for(String name:listOfNames){
+            names.add(name);
+        }
+
+        for (int i = 1; i < 20; i++) {
             // name
-            String generateName = customernamegeneratorservice.generateName();
+            String generateName = customerNameGeneratorService.generateName();
+            names.add(generateName);
             // account id
             String accountId = String.format("%012d", i);
             // account balance
@@ -66,7 +84,7 @@ public class GenerateAccountFilename {
             float balance = Float.parseFloat(df.format(input));
             // create date
             LocalDate dateNow = LocalDate.now();
-            AccountDTO accountDTO = new AccountDTO(generateName, accountId, balance, dateNow);
+            AccountDTO accountDTO = new AccountDTO(accountId,names.get(i), balance, dateNow);
             accounts.add(accountDTO);
 
         }
@@ -74,7 +92,6 @@ public class GenerateAccountFilename {
         accountexcelfileservice.writeExcel(accounts);
 
     }
-
 
 
 }
