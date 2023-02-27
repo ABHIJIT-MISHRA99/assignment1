@@ -2,7 +2,9 @@ package com.am.assignment1.service;
 
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 @Component
 public class CustomerNameGeneratorService {
@@ -10,28 +12,30 @@ public class CustomerNameGeneratorService {
     private static final String consonants = "bcdfghjklmnpqrstvwxyz";
 
 
-    private List<String> names=new ArrayList<>();
-    private int count=0;
+    private List<String> names = new ArrayList<>();
+    private int count = 0;
 
-    public  CustomerNameGeneratorService() {
+    public CustomerNameGeneratorService() {
         names.add("abcd");
         names.add("abcd1");
         names.add("abcd2");
         names.add("abcd3");
         names.add("abcd4");
     }
-    public List getList(){
-        return  names;
+
+    public List getList() {
+        return names;
     }
-    public int getNameCount(List<String> strings){
-        for(String w:strings){
-            count+=1;
+
+    public int getNameCount(List<String> strings) {
+        for (String w : strings) {
+            count += 1;
         }
         return count;
     }
 
     public String generateName() {
-        CustomerNameGeneratorService a=new CustomerNameGeneratorService();
+        CustomerNameGeneratorService a = new CustomerNameGeneratorService();
 
         return generateFourLetterString(4) + " " + generateFourLetterString(4);
     }

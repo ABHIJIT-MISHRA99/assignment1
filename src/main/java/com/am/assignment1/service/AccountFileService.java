@@ -16,27 +16,27 @@ import java.util.List;
 @Service
 @Slf4j
 public class AccountFileService {
-    public static String Filename="cusaccount.txt";
+    public static String Filename = "cusaccount.txt";
 
     //     public  static String Filename = "/home/abhi/Desktop/cusAccount.txt";
     public void generateFile() throws IOException {
         Path path = Paths.get(Filename);
-        if ( Files.exists(path)){
+        if (Files.exists(path)) {
             Files.delete(path);
         }
         Path file = Files.createFile(Paths.get(Filename));
-        System.out.println("file:"+file);
+        System.out.println("file:" + file);
     }
 
 
     public void writeToFile(List<AccountDTO> accounts) throws IOException {
-        Path path=Paths.get(Filename);
-        try(BufferedWriter bufferedWriter=Files.newBufferedWriter(path,StandardCharsets.UTF_8,StandardOpenOption.APPEND)){
+        Path path = Paths.get(Filename);
+        try (BufferedWriter bufferedWriter = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.APPEND)) {
             for (AccountDTO account : accounts) {
                 bufferedWriter.write(account.print());// this will go in the file.
                 bufferedWriter.write(System.lineSeparator());
             }
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             System.err.println("file write failed");
 

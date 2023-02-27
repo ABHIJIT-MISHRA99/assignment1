@@ -4,25 +4,20 @@ import com.am.assignment1.dto.AccountDTO;
 import com.am.assignment1.service.AccountExcelFileService;
 import com.am.assignment1.service.AccountFileService;
 import com.am.assignment1.service.CustomerNameGeneratorService;
-
 import jakarta.annotation.PostConstruct;
-//import lombok.extern.slf4j.Slf4j;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
 @Service
-//@Slf4j
 public class GenerateAccountFile {
     private static final Logger log = LoggerFactory.getLogger(GenerateAccountFile.class);
 
@@ -45,8 +40,8 @@ public class GenerateAccountFile {
         accountfileservice.generateFile();
         List<AccountDTO> accounts = new ArrayList<>();
         List<String> names = new ArrayList<>();
-        List<String> n=customerNameGeneratorService.getList();
-        for(String s:n){
+        List<String> n = customerNameGeneratorService.getList();
+        for (String s : n) {
             names.add(s);
         }
         for (int i = 1; i < 20; i++) {
@@ -63,7 +58,7 @@ public class GenerateAccountFile {
             // create date
             LocalDate dateNow = LocalDate.now();
 
-            AccountDTO accountDTO = new AccountDTO(accountId, names.get(i-1), balance, dateNow);
+            AccountDTO accountDTO = new AccountDTO(accountId, names.get(i - 1), balance, dateNow);
             accounts.add(accountDTO);
 
 
@@ -74,32 +69,6 @@ public class GenerateAccountFile {
         accountexcelfileservice.writeExcel(accounts);
 
     }
-
-//    @PostConstruct
-//    public void createAccountExcelFile() throws IOException {
-//        List<AccountDTO> accounts = new ArrayList<>();
-//        List<String> names = new ArrayList<>();
-//        names.addAll(customerNameGeneratorService.getNames());
-//
-//        for (int i = 1; i < 20; i++) {
-//            // name
-//            String generateName = customerNameGeneratorService.generateName();
-//            names.add(generateName);
-//            // account id
-//            String accountId = String.format("%012d", i);
-//            // account balance
-//            float input = rd.nextFloat();
-//            float balance = Float.parseFloat(df.format(input));
-//            // create date
-//            LocalDate dateNow = LocalDate.now();
-//            AccountDTO accountDTO = new AccountDTO(accountId, names.get(i - 1), balance, dateNow);
-//            accounts.add(accountDTO);
-//
-//        }
-//
-//        accountexcelfileservice.writeExcel(accounts);
-//
-//    }
 
 
 }

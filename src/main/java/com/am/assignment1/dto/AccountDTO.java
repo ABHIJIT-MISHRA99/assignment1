@@ -1,7 +1,5 @@
 package com.am.assignment1.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -53,8 +51,8 @@ public class AccountDTO {
     }
 
     // encapsulate the logic of file format in print method.
-    public String print(){
-        String formattedString=accountID+","+customerName+","+accountBalance+","+createDate;
+    public String print() {
+        String formattedString = accountID + "," + customerName + "," + accountBalance + "," + createDate;
         return formattedString;
     }
 }
