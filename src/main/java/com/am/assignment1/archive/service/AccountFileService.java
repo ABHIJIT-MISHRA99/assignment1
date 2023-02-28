@@ -1,4 +1,4 @@
-package com.am.assignment1.service;
+package com.am.assignment1.archive.service;
 
 import com.am.assignment1.dto.AccountDTO;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package com.am.assignment1.service;
+package com.am.assignment1.archive.service;
 
 import org.springframework.stereotype.Component;
 

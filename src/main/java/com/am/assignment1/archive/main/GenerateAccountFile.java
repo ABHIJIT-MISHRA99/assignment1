@@ -1,9 +1,9 @@
-package com.am.assignment1.main;
+package com.am.assignment1.archive.main;
 
 import com.am.assignment1.dto.AccountDTO;
-import com.am.assignment1.service.AccountExcelFileService;
-import com.am.assignment1.service.AccountFileService;
-import com.am.assignment1.service.CustomerNameGeneratorService;
+import com.am.assignment1.archive.service.AccountExcelFileService;
+import com.am.assignment1.archive.service.AccountFileService;
+import com.am.assignment1.archive.service.CustomerNameGeneratorService;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +35,7 @@ public class GenerateAccountFile {
     public static float rightLimit = 2000F;
 
 
-    @PostConstruct
+//    @PostConstruct
     public void createAccountFile() throws IOException {
         accountfileservice.generateFile();
         List<AccountDTO> accounts = new ArrayList<>();
